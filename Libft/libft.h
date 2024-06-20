@@ -6,7 +6,7 @@
 /*   By: cyaid <cyaid@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 17:16:30 by cyaid             #+#    #+#             */
-/*   Updated: 2023/11/17 17:16:35 by cyaid            ###   ########.fr       */
+/*   Updated: 2024/06/20 05:20:07 by cyaid            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int					ft_strncmp(const char *s1, const char *s2, size_t n);
 char				*ft_strnstr(const char *s1, const char *s2, size_t n);
 char				*ft_strdup(const char *str);
 char				*ft_strjoin(char const *s1, char const *s2);
+char				*ft_strjoin_free_s2(char const *s1, char *s2);
 char				*ft_strtrim(char const *s1, char const *set);
 char				*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void				ft_striteri(char *s, void (*f)(unsigned int, char *));
