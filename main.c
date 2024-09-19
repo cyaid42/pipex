@@ -6,7 +6,7 @@
 /*   By: cyaid <cyaid@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 02:03:53 by cyaid             #+#    #+#             */
-/*   Updated: 2024/06/20 05:30:50 by cyaid            ###   ########.fr       */
+/*   Updated: 2024/09/20 00:23:01 by cyaid            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*istrue(t_data *data, char *s1)
 		free(tmp);
 	}
 	free(s1);
-	write(1, "Nann\n", 6);
+	write(1, "command not found\n", 18);
 	return (NULL);
 }
 
@@ -69,16 +69,24 @@ int	recup_split(char *s1, char *s2, t_data *data)
 	if (!s1 || !*s1 || !s2 || !*s2)
 	{
 		free_tab(data->tokens);
-		exit (1);
+		write(2, "syntax error near unexpected token `|'\n", 39);
+		exit(1);
 	}
 	data->cmd1 = ft_split(s1, ' ');
 	data->cmd2 = ft_split(s2, ' ');
+	printf("%s\n", data->cmd1[0]);
 	if (s1[0] == '/')
-		return (0);
+	{
+		if (access(data->cmd1[0], F_OK) != 0)
+			return (write(2, "No such file or directory\n", 26), 1);
+	}
 	else
 		data->cmd1[0] = istrue(data, data->cmd1[0]);
 	if (s2[0] == '/')
-		return (0);
+	{
+		if (access(data->cmd2[0], F_OK) != 0)
+			return (write(2, "No such file or directory\n", 26), 1);
+	}
 	else
 		data->cmd2[0] = istrue(data, data->cmd2[0]);
 	if (!data->cmd1 || !*data->cmd1 || !data->cmd2 || !*data->cmd2)
@@ -97,9 +105,9 @@ int	main(int argc, char **argv, char **env)
 	{
 		data.env = env;
 		if (get_path(&data))
-			return (write(1, "Error\n", 6),free_exit(&data) , 1);
-		if (recup_split(argv[2], argv[3], &data))
 			return (write(1, "Error\n", 6), free_exit(&data), 1);
+		if (recup_split(argv[2], argv[3], &data))
+			return (free_exit(&data), 1);
 		pipex(&data, argv);
 	}
 	else

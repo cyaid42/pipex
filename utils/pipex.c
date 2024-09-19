@@ -6,7 +6,7 @@
 /*   By: cyaid <cyaid@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 20:19:15 by cyaid             #+#    #+#             */
-/*   Updated: 2024/06/20 05:15:41 by cyaid            ###   ########.fr       */
+/*   Updated: 2024/06/20 19:18:56 by cyaid            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ int	pipex(t_data *data, char **argv)
 	{
 		data->file1 = open(argv[1], O_RDONLY);
 		if (data->file1 == -1)
-			return (1);
+			return (write(1, "No such file or directory\n", 25),
+				free_exit(data), 1);
 		enfant1(data);
 	}
 	child2 = fork();
